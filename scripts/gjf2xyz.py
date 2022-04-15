@@ -5,18 +5,13 @@ Created on Fri Apr 15 14:58:39 2022
 @author: LiCheng_Xu
 """
 
-import glob,platform
+import glob,os
 
-if platform.system() == 'Windows':
-    split_char = '\\'
-elif platform.system() == 'Linux':
-    split_char = '/'
-    
 def gjf2xyz(gjf_dir,xyz_dir):
     gjf_files = glob.glob(gjf_dir+'*.gjf')
     
     for file in gjf_files:
-        fn = file.split(split_char)[-1].split('.')[0]
+        fn = os.path.basename(file).split('.')[0]
         with open(file,'r') as fr:
             lines = fr.readlines()
         title = ''
@@ -38,3 +33,4 @@ def gjf2xyz(gjf_dir,xyz_dir):
         
         with open(xyz_dir+fn+'.xyz','w') as fw:
             fw.writelines(xyz_string)
+    
